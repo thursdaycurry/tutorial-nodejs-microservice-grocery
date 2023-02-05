@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { customer, products, shopping } = require('./api');
+const { shopping, appEvents } = require('./api');
 const HandleErrors = require('./utils/error-handler');
 
 module.exports = async (app) => {
@@ -9,9 +9,12 @@ module.exports = async (app) => {
   app.use(cors());
   app.use(express.static(__dirname + '/public'));
 
+  // Listener
+  appEvents(app);
+
   //api 라우트
-  customer(app);
-  products(app);
+  // customer(app);
+  // products(app);
   shopping(app);
 
   // 전역 error handling

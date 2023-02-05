@@ -79,9 +79,9 @@ class ProductService {
         event: event,
         data: { userId, product, qty },
       };
-      return FormateDate(payload);
+      return FormateData(payload);
     } else {
-      return FormateDate({ error: 'No product available' });
+      return FormateData({ error: 'No product available' });
     }
   }
 }

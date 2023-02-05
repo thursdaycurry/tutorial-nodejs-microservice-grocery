@@ -125,6 +125,7 @@ module.exports = (app) => {
       //     qty,
       //     false
       //   );
+      console.log(`🐞🐞🐞🐞 data: ${JSON.stringify(data)}`);
 
       PublishCustomerEvent(data);
       PublishShoppingEvent(data);
