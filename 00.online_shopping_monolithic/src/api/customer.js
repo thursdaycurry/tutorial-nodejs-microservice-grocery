@@ -1,32 +1,34 @@
-const CustomerService = require("../services/customer-service");
-const UserAuth = require("./middlewares/auth");
+const CustomerService = require('../services/customer-service');
+const UserAuth = require('./middlewares/auth');
 
 module.exports = (app) => {
   const service = new CustomerService();
 
-  app.post("/customer/signup", async (req, res, next) => {
+  // 회원가입
+  app.post('/customer/signup', async (req, res, next) => {
     try {
       const { email, password, phone } = req.body;
+      // 회원가입 후 id와 토큰을 반환
       const { data } = await service.SignUp({ email, password, phone });
       return res.json(data);
     } catch (err) {
+      // 에러 발생 시 전역 에러 핸들러로 토스
       next(err);
     }
   });
 
-  app.post("/customer/login", async (req, res, next) => {
+  // 로그인
+  app.post('/customer/login', async (req, res, next) => {
     try {
       const { email, password } = req.body;
-
       const { data } = await service.SignIn({ email, password });
-
       return res.json(data);
     } catch (err) {
       next(err);
     }
   });
 
-  app.post("/customer/address", UserAuth, async (req, res, next) => {
+  app.post('/customer/address', UserAuth, async (req, res, next) => {
     try {
       const { _id } = req.user;
 
@@ -45,7 +47,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/customer/profile", UserAuth, async (req, res, next) => {
+  app.get('/customer/profile', UserAuth, async (req, res, next) => {
     try {
       const { _id } = req.user;
       const { data } = await service.GetProfile({ _id });
@@ -55,7 +57,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/customer/shoping-details", UserAuth, async (req, res, next) => {
+  app.get('/customer/shoping-details', UserAuth, async (req, res, next) => {
     try {
       const { _id } = req.user;
       const { data } = await service.GetShopingDetails(_id);
@@ -66,7 +68,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get("/customer/wishlist", UserAuth, async (req, res, next) => {
+  app.get('/customer/wishlist', UserAuth, async (req, res, next) => {
     try {
       const { _id } = req.user;
       const { data } = await service.GetWishList(_id);
