@@ -5,7 +5,8 @@ module.exports = (app) => {
   const service = new CustomerService();
 
   // 회원가입
-  app.post('/customer/signup', async (req, res, next) => {
+  // /customer/signup 이지만 gateway 통해서 오기 때문에 /signup
+  app.post('/signup', async (req, res, next) => {
     try {
       const { email, password, phone } = req.body;
       // 회원가입 후 id와 토큰을 반환
@@ -18,7 +19,7 @@ module.exports = (app) => {
   });
 
   // 로그인
-  app.post('/customer/login', async (req, res, next) => {
+  app.post('/login', async (req, res, next) => {
     try {
       const { email, password } = req.body;
       const { data } = await service.SignIn({ email, password });
@@ -28,7 +29,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post('/customer/address', UserAuth, async (req, res, next) => {
+  app.post('/address', UserAuth, async (req, res, next) => {
     try {
       const { _id } = req.user;
 
@@ -47,7 +48,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get('/customer/profile', UserAuth, async (req, res, next) => {
+  app.get('/profile', UserAuth, async (req, res, next) => {
     try {
       const { _id } = req.user;
       const { data } = await service.GetProfile({ _id });
@@ -57,7 +58,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get('/customer/shoping-details', UserAuth, async (req, res, next) => {
+  app.get('/shoping-details', UserAuth, async (req, res, next) => {
     try {
       const { _id } = req.user;
       const { data } = await service.GetShopingDetails(_id);
@@ -68,7 +69,7 @@ module.exports = (app) => {
     }
   });
 
-  app.get('/customer/wishlist', UserAuth, async (req, res, next) => {
+  app.get('/wishlist', UserAuth, async (req, res, next) => {
     try {
       const { _id } = req.user;
       const { data } = await service.GetWishList(_id);
