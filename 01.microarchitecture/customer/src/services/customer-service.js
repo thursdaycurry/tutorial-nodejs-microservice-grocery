@@ -154,7 +154,10 @@ class CustomerService {
       throw new APIError('Data Not found', err);
     }
   }
-
+  /**
+   * 위시리스트 추가 제거, 카트 추가제거, 오더 생성 등 이벤트
+   * @param {} payload
+   */
   async SubscribeEvents(payload) {
     const { event, data } = payload;
 
@@ -173,6 +176,9 @@ class CustomerService {
         break;
       case 'CREATE_ORDER':
         this.ManageOrder(userId, order);
+        break;
+      case 'TEST':
+        console.log('WORKING... Subscriber');
         break;
       default:
         break;
